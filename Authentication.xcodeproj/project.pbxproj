@@ -16,7 +16,6 @@
 		65B084C32AD13B500028D052 /* AuthenticationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B084C22AD13B500028D052 /* AuthenticationTests.swift */; };
 		65B084CD2AD13B500028D052 /* AuthenticationUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B084CC2AD13B500028D052 /* AuthenticationUITests.swift */; };
 		65B084CF2AD13B500028D052 /* AuthenticationUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B084CE2AD13B500028D052 /* AuthenticationUITestsLaunchTests.swift */; };
-		65B69A022AE3AC6F00EE9EA9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65B69A012AE3AC6F00EE9EA9 /* GoogleService-Info.plist */; };
 		65B69A042AE3AD8100EE9EA9 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B69A032AE3AD8100EE9EA9 /* FirebaseManager.swift */; };
 		65B69A072AE3AF3A00EE9EA9 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 65B69A062AE3AF3A00EE9EA9 /* FirebaseAuth */; };
 /* End PBXBuildFile section */
@@ -52,7 +51,6 @@
 		65B084C82AD13B500028D052 /* AuthenticationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuthenticationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65B084CC2AD13B500028D052 /* AuthenticationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUITests.swift; sourceTree = "<group>"; };
 		65B084CE2AD13B500028D052 /* AuthenticationUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		65B69A012AE3AC6F00EE9EA9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		65B69A032AE3AD8100EE9EA9 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,7 +111,6 @@
 				65B084B42AD13B500028D052 /* Assets.xcassets */,
 				65B084B62AD13B500028D052 /* LaunchScreen.storyboard */,
 				65B084B92AD13B500028D052 /* Info.plist */,
-				65B69A012AE3AC6F00EE9EA9 /* GoogleService-Info.plist */,
 				65B69A032AE3AD8100EE9EA9 /* FirebaseManager.swift */,
 			);
 			path = Authentication;
@@ -254,7 +251,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				65B084B82AD13B500028D052 /* LaunchScreen.storyboard in Resources */,
-				65B69A022AE3AC6F00EE9EA9 /* GoogleService-Info.plist in Resources */,
 				65B084B52AD13B500028D052 /* Assets.xcassets in Resources */,
 				65B084B32AD13B4F0028D052 /* Main.storyboard in Resources */,
 			);
