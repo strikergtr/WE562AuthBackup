@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore //<--- Import Firestore
 
 class ViewController: UIViewController {
     
@@ -104,32 +105,156 @@ class PopupController: UIViewController {
     }
 }
 
+struct NShop {
+    let itemName: String
+    let itemImage: String
+    let itemPrice: Float
+    // Optional
+    let itemColor: String
+}
+
+class Shop1DControler: UIViewController
+{
+    
+}
+
+class ShopDetailController:  UIViewController
+{
+    //Outlet
+    
+    @IBOutlet weak var itemImage: UIImageView!
+    
+    @IBOutlet weak var itemName: UILabel!
+    
+    @IBOutlet weak var itemPrice: UILabel!
+    
+    @IBOutlet weak var itemDesc: UILabel!
+    
+    var index:Int = 0
+    
+    var itemArray = [NShop]()
+    
+    var db = Firestore.firestore()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        connectDB()
+        
+    }
+    
+    func connectDB()
+    {
+        db.collection("shop").getDocuments {(snapshot, error) in
+            if error == nil && snapshot != nil
+            {
+                for document in snapshot!.documents
+                {
+                    // Map Data
+                    let itemNameData = document.get("name") as! String
+                    //let itemPriceData = document.get("price") as! Float
+                    let itemPriceData = (document.get("price") as? NSNumber)?.floatValue ?? 0
+
+                    var itemImageData = "noimage" // no image file name
+                    if let img = document.get("image")
+                    {
+                        itemImageData = img as! String
+                    }
+                    self.itemArray.append(NShop(itemName: itemNameData, itemImage: itemImageData, itemPrice: itemPriceData, itemColor: ""))
+                    DispatchQueue.main.async {
+                        if let nItem = self.itemArray[self.index] as NShop?
+                        {
+                            self.itemName.text = String(nItem.itemName)
+                            self.itemImage.image = UIImage(named: nItem.itemImage)
+                            self.itemPrice.text = String(nItem.itemPrice)
+                        }
+                    }
+                    
+          
+                }
+            }
+        }
+    }
+    
+}
+
 class ShopController: UIViewController {
 
     //Outlet
     @IBOutlet weak var mytable: UITableView!
-    var myitems = ["Car","Test","Cat","Dog","Eagle"]
+    var myitems = ["Item1","Item2","Item3","Item4","Item5"]
+    
+    var itemArray = [NShop]()
+    
+    var db = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        connectDB()
         mytable.delegate = self
         mytable.dataSource = self
+    }
+    func connectDB()
+    {
+        db.collection("shop").getDocuments {(snapshot, error) in
+            if error == nil && snapshot != nil
+            {
+                for document in snapshot!.documents
+                {
+                    // Map Data
+                    let itemNameData = document.get("name") as! String
+                    //let itemPriceData = document.get("price") as! Float
+                    let itemPriceData = (document.get("price") as? NSNumber)?.floatValue ?? 0
+                    
+                    
+                    var itemImageData = "noimage" // no image file name
+                    if var img = document.get("image")
+                    {
+                        itemImageData = img as! String
+                    }
+                    
+                    
+                    self.itemArray.append(NShop(itemName: itemNameData, itemImage: itemImageData, itemPrice: itemPriceData, itemColor: ""))
+                    // Add Firebase to Array
+                    DispatchQueue.main.async {
+                        self.mytable.reloadData()
+                    }
+                    
+                }
+            }
+        }
     }
 }
 extension ShopController: UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Row is Click")
+        print("Row is Click : \(indexPath[1])")
+        //Add Navigation
+        let storyboard = self.storyboard?.instantiateViewController(withIdentifier: "ShopDetailView") as! ShopDetailController
+        self.navigationController?.pushViewController(storyboard, animated: true)
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120.0
     }
 }
 extension ShopController: UITableViewDataSource
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myitems.count
+        return itemArray.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = myitems[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! NShopCell
+        
+        if let nItem = itemArray[indexPath.row] as NShop?
+        {
+            cell.itemName.text = String(nItem.itemName)
+            cell.itemImage.image = UIImage(named: nItem.itemImage)
+            cell.itemPrice.text = String(nItem.itemPrice)
+        }
+        
+        //cell.itemName.text = myitems[indexPath.row]
+        //cell.itemPrice.text = "500.00"
+        //cell.itemImage.image = UIImage(named: "iphone")
+        //cell.textLabel?.text = myitems[indexPath.row]
         return cell
     }
     
