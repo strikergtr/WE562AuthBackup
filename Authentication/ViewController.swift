@@ -19,6 +19,16 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if(Auth.auth().currentUser != nil)
+        {
+            print("Have User")
+            let storyboard = self.storyboard?.instantiateViewController(withIdentifier: "MainView") as! MainTabbarController
+            self.navigationController?.pushViewController(storyboard, animated: true)
+        }
+        else
+        {
+            print("No User")
+        }
         // Do any additional setup after loading the view.
     }
     //Action Zone
@@ -105,18 +115,7 @@ class PopupController: UIViewController {
     }
 }
 
-struct NShop {
-    let itemName: String
-    let itemImage: String
-    let itemPrice: Float
-    // Optional
-    let itemColor: String
-}
 
-class Shop1DControler: UIViewController
-{
-    
-}
 
 class ShopDetailController:  UIViewController
 {
@@ -130,46 +129,39 @@ class ShopDetailController:  UIViewController
     
     @IBOutlet weak var itemDesc: UILabel!
     
-    var index:Int = 0
-    
-    var itemArray = [NShop]()
+    var uid:String = ""
     
     var db = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         connectDB()
-        
     }
-    
     func connectDB()
     {
-        db.collection("shop").getDocuments {(snapshot, error) in
-            if error == nil && snapshot != nil
-            {
-                for document in snapshot!.documents
+        let doc = db.collection("shop").document(uid)
+        DispatchQueue.main.async {
+            doc.getDocument{(document, error) in
+                if let document = document, document.exists
                 {
-                    // Map Data
                     let itemNameData = document.get("name") as! String
-                    //let itemPriceData = document.get("price") as! Float
-                    let itemPriceData = (document.get("price") as? NSNumber)?.floatValue ?? 0
-
-                    var itemImageData = "noimage" // no image file name
+                    let itemNamePriceData = (document.get("price") as? NSNumber)?.floatValue ?? 0
+                    var itemImageData = "noimage"
                     if let img = document.get("image")
                     {
                         itemImageData = img as! String
                     }
-                    self.itemArray.append(NShop(itemName: itemNameData, itemImage: itemImageData, itemPrice: itemPriceData, itemColor: ""))
-                    DispatchQueue.main.async {
-                        if let nItem = self.itemArray[self.index] as NShop?
-                        {
-                            self.itemName.text = String(nItem.itemName)
-                            self.itemImage.image = UIImage(named: nItem.itemImage)
-                            self.itemPrice.text = String(nItem.itemPrice)
-                        }
-                    }
                     
-          
+                    
+                    self.itemName.text = String(itemNameData)
+                    self.itemImage.image = UIImage(named: itemImageData)
+                    self.itemPrice.text = String(itemNamePriceData)
+                }
+                else
+                {
+                    self.itemName.text = "No Item"
+                    self.itemPrice.text = "Error"
+                    self.itemImage.image = UIImage(named: "noimage")
                 }
             }
         }
@@ -200,6 +192,7 @@ class ShopController: UIViewController {
             {
                 for document in snapshot!.documents
                 {
+                    let itemID = document.documentID
                     // Map Data
                     let itemNameData = document.get("name") as! String
                     //let itemPriceData = document.get("price") as! Float
@@ -213,7 +206,7 @@ class ShopController: UIViewController {
                     }
                     
                     
-                    self.itemArray.append(NShop(itemName: itemNameData, itemImage: itemImageData, itemPrice: itemPriceData, itemColor: ""))
+                    self.itemArray.append(NShop(itemID: itemID, itemName: itemNameData, itemImage: itemImageData, itemPrice: itemPriceData, itemColor: ""))
                     // Add Firebase to Array
                     DispatchQueue.main.async {
                         self.mytable.reloadData()
@@ -227,9 +220,13 @@ class ShopController: UIViewController {
 extension ShopController: UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Row is Click : \(indexPath[1])")
+        //print("Row is Click : \(indexPath[1])")
+        var cellData:NShop = itemArray[indexPath[1]]
         //Add Navigation
         let storyboard = self.storyboard?.instantiateViewController(withIdentifier: "ShopDetailView") as! ShopDetailController
+        storyboard.uid = cellData.itemID
+        
+        
         self.navigationController?.pushViewController(storyboard, animated: true)
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

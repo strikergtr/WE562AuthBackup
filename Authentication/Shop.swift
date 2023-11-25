@@ -6,10 +6,14 @@
 //
 
 import Foundation
-struct Shop {
+struct NShop: Codable {
+    
+    let itemID: String
+    
     let itemName: String
     let itemImage: String
     let itemPrice: Float
     // Optional
     let itemColor: String
 }
+
