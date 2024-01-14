@@ -10,7 +10,6 @@
 		6524CB7A2AFF5BBD0082A1EE /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 6524CB792AFF5BBD0082A1EE /* FirebaseFirestore */; };
 		6524CB7C2AFF61330082A1EE /* NShopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6524CB7B2AFF61330082A1EE /* NShopCell.swift */; };
 		6524CB7E2AFF71430082A1EE /* Shop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6524CB7D2AFF71430082A1EE /* Shop.swift */; };
-		65273FEA2AECE29C0059B1EC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65273FE92AECE29C0059B1EC /* GoogleService-Info.plist */; };
 		65B084AC2AD13B4F0028D052 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B084AB2AD13B4F0028D052 /* AppDelegate.swift */; };
 		65B084AE2AD13B4F0028D052 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B084AD2AD13B4F0028D052 /* SceneDelegate.swift */; };
 		65B084B02AD13B4F0028D052 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B084AF2AD13B4F0028D052 /* ViewController.swift */; };
@@ -22,6 +21,7 @@
 		65B084CF2AD13B500028D052 /* AuthenticationUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B084CE2AD13B500028D052 /* AuthenticationUITestsLaunchTests.swift */; };
 		65B69A042AE3AD8100EE9EA9 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B69A032AE3AD8100EE9EA9 /* FirebaseManager.swift */; };
 		65B69A072AE3AF3A00EE9EA9 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 65B69A062AE3AF3A00EE9EA9 /* FirebaseAuth */; };
+		6DE97FEF2B5333DD00CAADD7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6DE97FEE2B5333DD00CAADD7 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +44,6 @@
 /* Begin PBXFileReference section */
 		6524CB7B2AFF61330082A1EE /* NShopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NShopCell.swift; sourceTree = "<group>"; };
 		6524CB7D2AFF71430082A1EE /* Shop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shop.swift; sourceTree = "<group>"; };
-		65273FE92AECE29C0059B1EC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		65B084A82AD13B4F0028D052 /* Authentication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Authentication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65B084AB2AD13B4F0028D052 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65B084AD2AD13B4F0028D052 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +58,7 @@
 		65B084CC2AD13B500028D052 /* AuthenticationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUITests.swift; sourceTree = "<group>"; };
 		65B084CE2AD13B500028D052 /* AuthenticationUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		65B69A032AE3AD8100EE9EA9 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		6DE97FEE2B5333DD00CAADD7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,7 +119,7 @@
 				65B084B42AD13B500028D052 /* Assets.xcassets */,
 				65B084B62AD13B500028D052 /* LaunchScreen.storyboard */,
 				65B084B92AD13B500028D052 /* Info.plist */,
-				65273FE92AECE29C0059B1EC /* GoogleService-Info.plist */,
+				6DE97FEE2B5333DD00CAADD7 /* GoogleService-Info.plist */,
 				65B69A032AE3AD8100EE9EA9 /* FirebaseManager.swift */,
 				6524CB7B2AFF61330082A1EE /* NShopCell.swift */,
 				6524CB7D2AFF71430082A1EE /* Shop.swift */,
@@ -263,7 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				65B084B82AD13B500028D052 /* LaunchScreen.storyboard in Resources */,
-				65273FEA2AECE29C0059B1EC /* GoogleService-Info.plist in Resources */,
+				6DE97FEF2B5333DD00CAADD7 /* GoogleService-Info.plist in Resources */,
 				65B084B52AD13B500028D052 /* Assets.xcassets in Resources */,
 				65B084B32AD13B4F0028D052 /* Main.storyboard in Resources */,
 			);

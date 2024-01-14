@@ -131,131 +131,40 @@ class ShopDetailController:  UIViewController
     
     var uid:String = ""
     
-    var db = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        connectDB()
     }
-    func connectDB()
-    {
-        let doc = db.collection("shop").document(uid)
-        DispatchQueue.main.async {
-            doc.getDocument{(document, error) in
-                if let document = document, document.exists
-                {
-                    let itemNameData = document.get("name") as! String
-                    let itemNamePriceData = (document.get("price") as? NSNumber)?.floatValue ?? 0
-                    var itemImageData = "noimage"
-                    if let img = document.get("image")
-                    {
-                        itemImageData = img as! String
-                    }
-                    
-                    
-                    self.itemName.text = String(itemNameData)
-                    self.itemImage.image = UIImage(named: itemImageData)
-                    self.itemPrice.text = String(itemNamePriceData)
-                }
-                else
-                {
-                    self.itemName.text = "No Item"
-                    self.itemPrice.text = "Error"
-                    self.itemImage.image = UIImage(named: "noimage")
-                }
-            }
-        }
+    
+}
+
+class TestController:  UIViewController
+{
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
     }
     
 }
 
 class ShopController: UIViewController {
 
-    //Outlet
-    @IBOutlet weak var mytable: UITableView!
-    var myitems = ["Item1","Item2","Item3","Item4","Item5"]
+
     
-    var itemArray = [NShop]()
-    
-    var db = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        connectDB()
-        mytable.delegate = self
-        mytable.dataSource = self
     }
-    func connectDB()
-    {
-        db.collection("shop").getDocuments {(snapshot, error) in
-            if error == nil && snapshot != nil
-            {
-                for document in snapshot!.documents
-                {
-                    let itemID = document.documentID
-                    // Map Data
-                    let itemNameData = document.get("name") as! String
-                    //let itemPriceData = document.get("price") as! Float
-                    let itemPriceData = (document.get("price") as? NSNumber)?.floatValue ?? 0
-                    
-                    
-                    var itemImageData = "noimage" // no image file name
-                    if var img = document.get("image")
-                    {
-                        itemImageData = img as! String
-                    }
-                    
-                    
-                    self.itemArray.append(NShop(itemID: itemID, itemName: itemNameData, itemImage: itemImageData, itemPrice: itemPriceData, itemColor: ""))
-                    // Add Firebase to Array
-                    DispatchQueue.main.async {
-                        self.mytable.reloadData()
-                    }
-                    
-                }
-            }
-        }
-    }
-}
-extension ShopController: UITableViewDelegate
-{
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //print("Row is Click : \(indexPath[1])")
-        var cellData:NShop = itemArray[indexPath[1]]
-        //Add Navigation
+   
+    @IBAction func ClicktoChangePage(_ sender: UIButton) {
+        print("OK")
         let storyboard = self.storyboard?.instantiateViewController(withIdentifier: "ShopDetailView") as! ShopDetailController
-        storyboard.uid = cellData.itemID
-        
         
         self.navigationController?.pushViewController(storyboard, animated: true)
     }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120.0
-    }
 }
-extension ShopController: UITableViewDataSource
-{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemArray.count
-    }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! NShopCell
-        
-        if let nItem = itemArray[indexPath.row] as NShop?
-        {
-            cell.itemName.text = String(nItem.itemName)
-            cell.itemImage.image = UIImage(named: nItem.itemImage)
-            cell.itemPrice.text = String(nItem.itemPrice)
-        }
-        
-        //cell.itemName.text = myitems[indexPath.row]
-        //cell.itemPrice.text = "500.00"
-        //cell.itemImage.image = UIImage(named: "iphone")
-        //cell.textLabel?.text = myitems[indexPath.row]
-        return cell
-    }
-    
-}
+
 
 
 
